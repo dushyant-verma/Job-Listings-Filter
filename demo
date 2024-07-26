@@ -1,0 +1,56 @@
+<script>
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const jobListings = [
+        { title: 'Software Engineer', type: 'full-time', location: 'new-york' },
+        { title: 'Product Manager', type: 'full-time', location: 'san-francisco' },
+        { title: 'Designer', type: 'part-time', location: 'remote' },
+        { title: 'Intern', type: 'internship', location: 'new-york' },
+        { title: 'Marketing Specialist', type: 'part-time', location: 'san-francisco' },
+    ];
+
+    const jobTypeFilter = document.getElementById('jobTypeFilter');
+    const locationFilter = document.getElementById('locationFilter');
+    const jobListingsContainer = document.getElementById('jobListings');
+
+    function renderJobListings(jobs) {
+        jobListingsContainer.innerHTML = '';
+        jobs.forEach(job => {
+            const jobElement = document.createElement('div');
+            jobElement.className = 'job-listing';
+            jobElement.innerHTML = `
+                <h3>${job.title}</h3>
+                <p>Type: ${job.type}</p>
+                <p>Location: ${job.location}</p>
+            `;
+            jobListingsContainer.appendChild(jobElement);
+        });
+    }
+
+    function filterJobListings() {
+        const selectedJobType = jobTypeFilter.value;
+        const selectedLocation = locationFilter.value;
+
+        const filteredJobs = jobListings.filter(job => {
+            return (
+                (selectedJobType === '' || job.type === selectedJobType) &&
+                (selectedLocation === '' || job.location === selectedLocation)
+            );
+        });
+
+        renderJobListings(filteredJobs);
+    }
+
+    jobTypeFilter.addEventListener('change', filterJobListings);
+    locationFilter.addEventListener('change', filterJobListings);
+
+    renderJobListings(jobListings);
+});
+
+
+
+
+
+
+</script>
